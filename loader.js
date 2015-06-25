@@ -30,13 +30,18 @@ var Loader = (function () {
     }
     Loader.prototype.LoadScripts = function (callback) {
         var count = this.tempList.length;
-        var head = document.getElementsByTagName('body')[0];
+        var elem;
+
+if(this.currentDepth == 0)
+    elem    = document.getElementsByTagName('head')[0];
+else
+    elem    = document.getElementsByTagName('body')[0];
         var that = this;
         this.tempList.forEach(function (item) {
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = item;
-            head.appendChild(script);
+            elem.appendChild(script);
             script.onload = script.onreadystatechange = function (e) {
                 //For IE
                 if(this.readyState === undefined )
